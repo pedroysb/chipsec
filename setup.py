@@ -249,7 +249,7 @@ setup(
     ],
 
     data_files = data_files,
-    packages = find_packages(exclude=["tests.*", "tests"]),
+    packages = find_packages(exclude=["chipsec.tests.*", "chipsec.tests"]),
     package_data = package_data,
     install_requires = install_requires,
 
@@ -260,7 +260,7 @@ setup(
             'chipsec_main=chipsec_main:main',
         ],
     },
-    test_suite="tests",
+    test_suite="chipsec.tests",
     cmdclass = {
         'install': install,
         'build': build,

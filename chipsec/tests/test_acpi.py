@@ -19,7 +19,7 @@
 import struct
 import unittest
 
-from tests.software import mock_helper, util
+from chipsec.tests import mock_helper, util
 
 
 class TestACPIChipsecUtil(util.TestChipsecUtil):

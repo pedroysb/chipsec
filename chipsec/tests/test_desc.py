@@ -15,30 +15,27 @@
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 #
+
 import unittest
 
-from tests.software import mock_helper, util
+from chipsec.tests import mock_helper, util
 
 
-class TestMSRChipsecUtil(util.TestChipsecUtil):
-    """Test the MSR commands exposed by chipsec_utils."""
+class TestDescChipsecUtil(util.TestChipsecUtil):
+    """Test the Desc commands (gdt, idt, ldt) exposed by chipsec_utils."""
 
-    def test_msr(self):
+    def test_gdt(self):
 
-        class MSRHelper(mock_helper.TestHelper):
+        class GDTHelper(mock_helper.TestHelper):
 
-            def get_threads_count(self):
-                return 1
+            def get_descriptor_table(self, cpu_thread_id, desc_table_code):
+                return (63, 0x1000, 0x0)
 
-            def read_msr(self, thread_id, msr_addr):
-                if msr_addr == 0x2FF:
-                    return [0x1234, 0xcdef]
-                else:
-                    return [0x0, 0x0]
+            def read_phys_mem(self, pa_hi, pa_lo, length):
+                return "\xff" * length
 
-        self._chipsec_util("msr 0x2FF", MSRHelper)
-        self._assertLogValue("EAX", "00001234")
-        self._assertLogValue("EDX", "0000CDEF")
+        self._chipsec_util("gdt 0", GDTHelper)
+        self.assertIn(b"# of entries    : 4", self.log)
 
 if __name__ == '__main__':
     unittest.main()

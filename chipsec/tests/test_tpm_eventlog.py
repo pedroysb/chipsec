@@ -17,7 +17,7 @@ import struct
 import tempfile
 import unittest
 
-from tests.software import mock_helper, util
+from chipsec.tests import mock_helper, util
 
 
 class TestTpmEventLogChipsecUtil(util.TestChipsecUtil):

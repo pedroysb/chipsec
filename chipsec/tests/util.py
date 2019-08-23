@@ -19,7 +19,7 @@ import os
 import tempfile
 import unittest
 
-from tests.software import mock_helper
+from chipsec.tests import mock_helper
 
 import chipsec_util
 from chipsec import logger
